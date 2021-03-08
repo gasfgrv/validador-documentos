@@ -3,10 +3,12 @@ package gusto.validador.cpf;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class ValidaCPF {
 
 	public boolean isCpfValido(String cpf) {
-		List<String> numerosCpf = new ArrayList<String>();
+		List<String> numerosCpf = new ArrayList<>();
 
 		int calculoValidacao = 0;
 
@@ -20,7 +22,7 @@ public class ValidaCPF {
 		}
 
 		for (int i = 0; i < numerosCpf.size() - 2; i++) {
-			calculoValidacao += Integer.parseInt(numerosCpf.get(i)) * (i + 1);
+			calculoValidacao += parseInt(numerosCpf.get(i)) * (i + 1);
 		}
 
 		digitoValidador1 = calculoValidacao % 11;
@@ -28,17 +30,13 @@ public class ValidaCPF {
 		calculoValidacao = 0;
 
 		for (int i = 0; i < numerosCpf.size() - 1; i++) {
-			calculoValidacao += Integer.parseInt(numerosCpf.get(i)) * i;
+			calculoValidacao += parseInt(numerosCpf.get(i)) * i;
 		}
 
 		digitoValidador2 = calculoValidacao % 11;
 
-		if (numerosCpf.get(numerosCpf.size() - 2).equals(Integer.toString(digitoValidador1))
-				&& numerosCpf.get(numerosCpf.size() - 1).equals(Integer.toString(digitoValidador2))) {
-			return true;
-		}
-
-		return false;
+		return numerosCpf.get(numerosCpf.size() - 2).equals(Integer.toString(digitoValidador1))
+				&& numerosCpf.get(numerosCpf.size() - 1).equals(Integer.toString(digitoValidador2));
 	}
 
 }

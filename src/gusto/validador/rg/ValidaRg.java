@@ -6,7 +6,7 @@ import java.util.List;
 public class ValidaRg {
 	public boolean isRgValido(String rg) {
 		// Serve apenas para RGs de São Paulo
-		List<String> numerosRg = new ArrayList<String>();
+		List<String> numerosRg = new ArrayList<>();
 
 		int digitoValidador = 0;
 
@@ -22,14 +22,11 @@ public class ValidaRg {
 
 		digitoValidador = 11 - (digitoValidador % 11);
 
-		if (numerosRg.get(numerosRg.size() - 1).equals(Integer.toString(digitoValidador))) {
-			return true;
-		} else if (numerosRg.get(numerosRg.size() - 1).equals("11") && digitoValidador == 11) {
-			return true;
-		} else if (numerosRg.get(numerosRg.size() - 1).toUpperCase().equals("X") && digitoValidador == 10) {
-			return true;
-		}
+		boolean isValidoComDigitoNumerico = numerosRg.get(numerosRg.size() - 1).equals(Integer.toString(digitoValidador))
+				|| numerosRg.get(numerosRg.size() - 1).equals("11") && digitoValidador == 11;
 
-		return false;
+		boolean isValidoComDigitoX = numerosRg.get(numerosRg.size() - 1).equals("X") && digitoValidador == 10;
+
+		return isValidoComDigitoNumerico || isValidoComDigitoX;
 	}
 }
